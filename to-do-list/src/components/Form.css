@@ -1,0 +1,102 @@
+#form{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    height: 200px;
+    width: 500px;
+    flex-shrink: 0;
+}
+
+.inputs{
+    text-align: center;
+    height: 25px;
+    border: white 2px solid;
+    border-radius: 10px;
+}
+
+#desc{
+    height: 50px;
+}
+#submit{
+    width: 50%;
+    height: 50px;
+    border: white 2px solid;
+    border-radius: 10px;
+
+}
+
+.div-input{
+    display: flex;
+    flex-direction: column;
+}
+
+#tarefa{
+    
+    width: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    background-color: gainsboro;
+    border: 1px solid black;
+    border-radius: 10px;
+    color: black;
+}
+
+#select{
+    text-align: center;
+    height: 30px;
+    border: white 2px solid;
+    border-radius: 10px;
+}
+
+
+.partes{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.tabela-tarefas {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background-color: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  
+  .tabela-tarefas th,
+  .tabela-tarefas td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    color: #000;
+  }
+  
+  .tabela-tarefas th {
+    background-color: #e1ecf4;
+    font-weight: bold;
+  }
+  
+  .tabela-tarefas tr:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .tabela-tarefas button {
+    margin: 0 2px;
+    padding: 4px 6px;
+    font-size: 12px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    background-color: #e0e0e0;
+    transition: background-color 0.2s;
+  }
+  
+  .tabela-tarefas button:hover {
+    background-color: #ccc;
+  }
+  
+  
