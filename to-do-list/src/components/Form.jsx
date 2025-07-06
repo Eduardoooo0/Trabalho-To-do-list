@@ -7,19 +7,30 @@ export default function Form() {
     const [concluida, setConcluida] = useState('pendente');
     const [listatarefas, setListaTarefas] = useState([]);
 
+
     const addTarefa = () => {
-        const novatarefa = {
-            id: Date.now(),
-            title: titulo,
-            desc: descricao,
-            status: concluida
-        };
-        setListaTarefas([...listatarefas, novatarefa]);
+        const tituloNormalizado = titulo.trim().toLowerCase();
+        const tituloDuplicado = listatarefas.some(
+            (tarefa) => tarefa.title.trim().toLowerCase() === tituloNormalizado
+        );
+
+        if (tituloDuplicado) {
+            alert("Já existe uma tarefa com esse título!");
+            return;
+        }else{
+
+            const novatarefa = {
+                id: Date.now(),
+                title: titulo,
+                desc: descricao,
+                status: concluida
+            };
+            setListaTarefas([...listatarefas, novatarefa]);
+        }
     };
 
     const handleTitulo = (e) => setTitulo(e.target.value);
     const handleDescricao = (e) => setDescricao(e.target.value);
-    const handleStatus = (e) => setConcluida(e.target.value);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -29,7 +40,6 @@ export default function Form() {
         setConcluida('pendente');
     };
 
-    const handleClean = () => setListaTarefas([]);
 
     const atualizarStatus = (id, novoStatus) => {
         const novaLista = listatarefas.map(tarefa =>
@@ -48,60 +58,62 @@ export default function Form() {
         setListaTarefas(novaLista);
     };
 
+    const removerTarefa = (tarefa,index) => {
+        const confirmar = confirm(`Deseja deletar a tarefa "${tarefa}"?`);
+        if (confirmar === true){
+            const novaLista = listatarefas.filter((_, i) => i !== index);
+            setListaTarefas(novaLista);
+        }
+    };
+
     return (
         <>
             <h1>Lista de tarefas</h1>
             <hr />
             <form id="form" onSubmit={handleSubmit}>
                 <div className="div-input">
-                    <label><b>Titulo: </b></label>
-                    <input className='inputs' type="text" placeholder="Digite o título" onChange={handleTitulo} value={titulo} />
+                    <label className="text"><b>Titulo: </b></label>
+                    <input className='inputs' type="text" placeholder="Digite o título" maxLength={20} onChange={handleTitulo} value={titulo} required />
                 </div>
                 <div className="div-input">
-                    <label><b>Descrição:</b></label>
-                    <input className='inputs' type="text" placeholder="Digite a descrição" onChange={handleDescricao} value={descricao} />
+                    <label className="text"><b>Descrição:</b></label>
+                    <input className='inputs' type="text" placeholder="Digite uma breve descrição" maxLength={30} onChange={handleDescricao} value={descricao} required />
                 </div>
-                <div className="div-input">
-                    <label><b>Status:</b></label>
-                    <select onChange={handleStatus} value={concluida}>
-                        <option value="pendente">Pendente</option>
-                        <option value="realizada">Realizada</option>
-                        <option value="não realizada">Não realizada</option>
-                    </select>
-                </div>
+                
                 <input id="submit" type="submit" value="Enviar" />
             </form>
 
+            {listatarefas.length > 0 && (
+                <table className="tabela-tarefas">
+                    <thead>
+                        <tr>
+                        <th>Título</th>
+                        <th>Descrição</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {listatarefas.map((item, index) => (
+                        <tr key={item.id}>
+                            <td>{item.title}</td>
+                            <td>{item.desc}</td>
+                            <td>{item.status}</td>
+                            <td>
+                            <button className="button-marcar" onClick={() => atualizarStatus(item.id, 'pendente')}>🕒</button>
+                            <button className="button-marcar" onClick={() => atualizarStatus(item.id, 'realizada')}>✅</button>
+                            <button className="button-marcar" onClick={() => atualizarStatus(item.id, 'não realizada')}>❌</button>
+                            <button className="button-marcar" onClick={() => moverTarefa(index, 'cima')}>⬆️</button>
+                            <button className="button-marcar" onClick={() => moverTarefa(index, 'baixo')}>⬇️</button>
+                            <button className="button-marcar" onClick={() => removerTarefa(item.title,index)}>🗑️</button>
+                            </td>
+                        </tr>
+                        ))}
+                    </tbody>
+                </table>
+            )}
+            
 
-            <table className="tabela-tarefas">
-                <thead>
-                    <tr>
-                    <th>Título</th>
-                    <th>Descrição</th>
-                    <th>Status</th>
-                    <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {listatarefas.map((item, index) => (
-                    <tr key={item.id}>
-                        <td>{item.title}</td>
-                        <td>{item.desc}</td>
-                        <td>{item.status}</td>
-                        <td>
-                        <button className="button-marcar" onClick={() => atualizarStatus(item.id, 'pendente')}>🕒</button>
-                        <button className="button-marcar" onClick={() => atualizarStatus(item.id, 'realizada')}>✅</button>
-                        <button className="button-marcar" onClick={() => atualizarStatus(item.id, 'não realizada')}>❌</button>
-                        <button className="button-marcar" onClick={() => moverTarefa(index, 'cima')}>⬆️</button>
-                        <button className="button-marcar" onClick={() => moverTarefa(index, 'baixo')}>⬇️</button>
-                        </td>
-                    </tr>
-                    ))}
-                </tbody>
-            </table>
-
-
-            <button onClick={handleClean}>Limpar</button>
         </>
     );
 }
