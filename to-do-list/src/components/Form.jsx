@@ -6,6 +6,15 @@ export default function Form() {
     const [descricao, setDescricao] = useState('');
     const [concluida, setConcluida] = useState('pendente');
     const [listatarefas, setListaTarefas] = useState([]);
+    const [filtro, setFiltro] = useState("todas");
+
+
+    const tarefasFiltradas = listatarefas.filter((tarefa) => {
+        if (filtro === "pendente") return tarefa.status === "pendente";
+        if (filtro === "realizada") return tarefa.status === "realizada";
+        if (filtro === "nao-realizada") return tarefa.status === "não realizada";
+        return true;
+    });
 
 
     const addTarefa = () => {
@@ -66,9 +75,13 @@ export default function Form() {
         }
     };
 
+    const handleClean = () => {
+        setListaTarefas([])
+    }
+
     return (
         <>
-            <h1>Lista de tarefas</h1>
+            <h1>Cadastrar tarefas</h1>
             <hr />
             <form id="form" onSubmit={handleSubmit}>
                 <div className="div-input">
@@ -82,36 +95,51 @@ export default function Form() {
                 
                 <input id="submit" type="submit" value="Enviar" />
             </form>
-
+    
             {listatarefas.length > 0 && (
-                <table className="tabela-tarefas">
-                    <thead>
-                        <tr>
-                        <th>Título</th>
-                        <th>Descrição</th>
-                        <th>Status</th>
-                        <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {listatarefas.map((item, index) => (
-                        <tr key={item.id}>
-                            <td>{item.title}</td>
-                            <td>{item.desc}</td>
-                            <td>{item.status}</td>
-                            <td>
-                            <button className="button-marcar" onClick={() => atualizarStatus(item.id, 'pendente')}>🕒</button>
-                            <button className="button-marcar" onClick={() => atualizarStatus(item.id, 'realizada')}>✅</button>
-                            <button className="button-marcar" onClick={() => atualizarStatus(item.id, 'não realizada')}>❌</button>
-                            <button className="button-marcar" onClick={() => moverTarefa(index, 'cima')}>⬆️</button>
-                            <button className="button-marcar" onClick={() => moverTarefa(index, 'baixo')}>⬇️</button>
-                            <button className="button-marcar" onClick={() => removerTarefa(item.title,index)}>🗑️</button>
-                            </td>
-                        </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <>
+                    <h1>Lista de tarefas</h1>
+                    <hr />
+                    <form id="filtrar" onSubmit={(e) => e.preventDefault()}>
+                        <label id="label-filtrar" htmlFor="filtrar">Filtrar por:</label>
+                        <select id="select-filtrar" name="filtrar" value={filtro} onChange={(e) => setFiltro(e.target.value)}>
+                            <option value="todas">Todas as atividades</option>
+                            <option value="pendente">Pendente</option>
+                            <option value="realizada">Realizada</option>
+                            <option value="nao-realizada">Não realizada</option>
+                        </select>
+                    </form>
+                    <table className="tabela-tarefas">
+                        <thead>
+                            <tr>
+                            <th>Título</th>
+                            <th>Descrição</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {tarefasFiltradas.map((item, index) => (
+                                <tr key={item.id}>
+                                    <td>{item.title}</td>
+                                    <td>{item.desc}</td>
+                                    <td>{item.status}</td>
+                                    <td>
+                                    <button className="button-marcar" onClick={() => atualizarStatus(item.id, 'pendente')}>🕒</button>
+                                    <button className="button-marcar" onClick={() => atualizarStatus(item.id, 'realizada')}>✅</button>
+                                    <button className="button-marcar" onClick={() => atualizarStatus(item.id, 'não realizada')}>❌</button>
+                                    <button className="button-marcar" onClick={() => moverTarefa(index, 'cima')}>⬆️</button>
+                                    <button className="button-marcar" onClick={() => moverTarefa(index, 'baixo')}>⬇️</button>
+                                    <button className="button-marcar" onClick={() => removerTarefa(item.title,index)}>🗑️</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    <button id="clean" onClick={() => handleClean()}>Limpar Tudo</button>
+                </>
             )}
+
             
 
         </>
