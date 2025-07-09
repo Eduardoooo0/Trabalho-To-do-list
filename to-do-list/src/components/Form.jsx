@@ -75,13 +75,16 @@ export default function Form() {
     const removerTarefa = (tarefa,index) => {
         const confirmar = confirm(`Deseja deletar a tarefa "${tarefa}"?`);
         if (confirmar === true){
-            const novaLista = listatarefas.filter((_, i) => i !== index);
+            const novaLista = listatarefas.filter((_,i) => i !== index);
             setListaTarefas(novaLista);
         }
     };
 
     const handleClean = () => {
+        const confirmar = confirm('Deseja deletar todas as tarefas?');
+        if (confirmar === true){
         setListaTarefas([])
+        }
     }
 
     return (
@@ -95,7 +98,7 @@ export default function Form() {
                 </div>
                 <div className="div-input">
                     <label className="text"><b>Descrição:</b></label>
-                    <input className='inputs' type="text" placeholder="Digite uma breve descrição" maxLength={30} onChange={handleDescricao} value={descricao} required />
+                    <input className='inputs' type="text" placeholder="Digite uma breve descrição" maxLength={25} onChange={handleDescricao} value={descricao} required />
                 </div>
                 
                 <input id="submit" type="submit" value="Enviar" />
