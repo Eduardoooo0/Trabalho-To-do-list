@@ -47,7 +47,12 @@ export default function Form() {
         e.preventDefault();
         addTarefa();
         setConcluida('pendente');
+        
     };
+
+    const handleFiltro = (e) => {
+        e.preventDefault();
+    }
 
 
     const atualizarStatus = (id, novoStatus) => {
@@ -100,7 +105,7 @@ export default function Form() {
                 <>
                     <h1>Lista de tarefas</h1>
                     <hr />
-                    <form id="filtrar" onSubmit={(e) => e.preventDefault()}>
+                    <form id="filtrar" onSubmit={handleFiltro}>
                         <label id="label-filtrar" htmlFor="filtrar">Filtrar por:</label>
                         <select id="select-filtrar" name="filtrar" value={filtro} onChange={(e) => setFiltro(e.target.value)}>
                             <option value="todas">Todas as atividades</option>
