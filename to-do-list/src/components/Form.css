@@ -25,7 +25,7 @@ body {
 }
 
 h1{
-    color: #070707;
+    color: rgb(0, 0, 0);
 }
 
 #form:hover {
@@ -34,7 +34,7 @@ h1{
 
 hr {
     width: 100%;
-    border: 1px solid #ddd;
+    border: 1px solid rgb(172, 78, 180) ;
 }
 
 /* Container dos inputs */
@@ -109,7 +109,8 @@ hr {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     border-radius: 10px;
     overflow: hidden;
-    table-layout: auto;
+    table-layout: fixed;
+
 }
 
 .tabela-tarefas th,
@@ -125,13 +126,13 @@ hr {
 }
 
 .tabela-tarefas th {
-    background-color: #f5f5f5;
+    background-color: whitesmoke;
     font-weight: 600;
     color: #070707;
 }
 
 .tabela-tarefas tr:hover {
-    background-color: #f9fcff;
+    background-color: whitesmoke;
 }
 
 /* Container de ações flexível */
@@ -144,7 +145,8 @@ hr {
 
 /* Botões da tabela */
 .tabela-tarefas button {
-    margin: 0;
+    margin-left: 10px;
+    margin-top:5px;
     padding: 6px 10px;
     font-size: 13px;
     border-radius: 6px;
@@ -188,8 +190,8 @@ hr {
     align-items: center;
     gap: 12px;
     padding: 10px 15px;
-    background-color: #f8f9fa;
-    border: 1px solid #ddd;
+    background-color: white;
+    border: 1px solid whitesmoke;
     border-radius: 10px;
     width: fit-content;
     margin: 20px auto;
@@ -198,26 +200,26 @@ hr {
 #label-filtrar {
     font-size: 15px;
     font-weight: 500;
-    color: #333;
+    color: black;
 }
 
 #select-filtrar {
     padding: 6px 12px;
-    border: 1px solid #ccc;
+    border: 1px solid whitesmoke;
     border-radius: 8px;
-    background-color: #fff;
-    color: #333;
+    background-color:whitesmoke;
+    color: black;
     font-size: 14px;
     cursor: pointer;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 #select-filtrar:hover {
-    border-color: #999;
+    border-color: grey;
 }
 
 #select-filtrar:focus {
     outline: none;
-    border-color: #a57bc0;
+    border-color: rgb(150, 94, 150);
     box-shadow: 0 0 0 3px rgba(165, 123, 192, 0.25);
 }
