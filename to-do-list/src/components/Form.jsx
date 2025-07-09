@@ -35,6 +35,8 @@ export default function Form() {
                 status: concluida
             };
             setListaTarefas([...listatarefas, novatarefa]);
+            setDescricao('');
+            setTitulo('');
         }
     };
 
@@ -44,8 +46,6 @@ export default function Form() {
     const handleSubmit = (e) => {
         e.preventDefault();
         addTarefa();
-        setDescricao('');
-        setTitulo('');
         setConcluida('pendente');
     };
 
